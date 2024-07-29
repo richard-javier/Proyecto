@@ -14,16 +14,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   login() {
     this.authService.login(this.usuario).subscribe(
       (response) => {
-        // Handle successful login
-        // Store the token (if your backend provides one) in local storage
-        localStorage.setItem('token', response.token); // Replace 'token' with the actual token key
-        this.router.navigate(['/home']); // Redirect to your home route
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/home']);
       },
       (error) => {
         this.errorMessage = error.error.message;
@@ -31,4 +28,9 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  navigateToForgotPassword() {
+    this.router.navigate(['/forgot-password']);
+  }
 }
+

@@ -1,4 +1,3 @@
-// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -26,5 +25,12 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  resetPassword(email: string): Observable<any> {  // Añadimos el método 'resetPassword'
+    return this.http.post(`${environment.apiUrl}/auth/forgot-password`, { email });
+  }
+  register(usuario: Usuario): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/register`, usuario);
   }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="login-container">
   <h2>Login</h2>
   <form (ngSubmit)="login()">
     <div class="form-group">
@@ -13,5 +13,7 @@
       {{ errorMessage }}
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
+    <a routerLink="/forgot-password" class="btn btn-link">Forgot Password?</a>
+    <a routerLink="/register" class="btn btn-link">Create an Account</a>
   </form>
 </div>
