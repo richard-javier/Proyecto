@@ -1,36 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../models/login';
+import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Login } from '../../models/login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  usuario: Usuario = new Usuario();
-  errorMessage: string = '';
+export class LoginComponent {
+  loginData: Login = new Login();
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit(): void { }
+  constructor(private authService: AuthService) { }
 
   login() {
-    this.authService.login(this.usuario).subscribe(
-      (response) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']);
+    this.authService.login(this.loginData).subscribe(
+      response => {
+        console.log('Login successful', response);
       },
-      (error) => {
-        this.errorMessage = error.error.message;
-        console.error('Login error:', error);
+      error => {
+        console.error('Login failed', error);
       }
     );
   }
-
-  navigateToForgotPassword() {
-    this.router.navigate(['/forgot-password']);
-  }
 }
-

@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\components\ForgotPasswordComponent\" />
+    <Folder Include="src\app\components\Lista-registros\" />
     <Folder Include="src\app\models\" />
     <Folder Include="src\app\enviroments\" />
   </ItemGroup>

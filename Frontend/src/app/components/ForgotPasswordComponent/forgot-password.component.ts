@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { ForgotPassword } from '../../models/forgot-password';
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,22 +8,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  email: string = '';
-  successMessage: string = '';
-  errorMessage: string = '';
+  forgotPasswordData: ForgotPassword = new ForgotPassword(0, '', '', '');
 
   constructor(private authService: AuthService) { }
 
-  resetPassword() {
-    this.authService.resetPassword(this.email).subscribe(
-      (response: any) => {  // Definimos el tipo 'any' para 'response'
-        this.successMessage = 'Password reset link has been sent to your email.';
-        this.errorMessage = '';
+  forgotPassword() {
+    this.authService.forgotPassword(this.forgotPasswordData).subscribe(
+      response => {
+        console.log('Forgot password email sent', response);
       },
-      (error: any) => {  // Definimos el tipo 'any' para 'error'
-        this.errorMessage = error.error.message;
-        this.successMessage = '';
-        console.error('Reset password error:', error);
+      error => {
+        console.error('Forgot password request failed', error);
       }
     );
   }

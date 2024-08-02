@@ -1,36 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/login';
-import { environment } from '../enviroments/enviroment';
+import { environment } from '../../app/enviroments/enviroment';
+import { Login } from '../models/login';
+import { Register } from '../models/register';
+import { ForgotPassword } from '../models/forgot-password';
+import { ListaRegistro } from '../models/lista-registros';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Esto hace que el servicio esté disponible a nivel global
 })
 export class AuthService {
+  private apiUrl = `${environment.apiUrl}/api`;
 
   constructor(private http: HttpClient) { }
 
-  login(Usuario: Usuario): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/login`, Usuario);
+  login(login: Login): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, login);
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
+  register(register: Register): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, register);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  resetPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgotpassword`, { email });
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  forgotPassword(forgotPassword: ForgotPassword): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgotpassword`, forgotPassword);
   }
 
-  resetPassword(email: string): Observable<any> {  // Añadimos el método 'resetPassword'
-    return this.http.post(`${environment.apiUrl}/auth/forgot-password`, { email });
+  obtenerUsuarios(): Observable<ListaRegistro[]> {
+    return this.http.get<ListaRegistro[]>(`${this.apiUrl}/listaregistros`);
   }
-  register(usuario: Usuario): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/register`, usuario);
+
+  actualizarUsuario(usuario: ListaRegistro): Observable<any> {
+    return this.http.put(`${this.apiUrl}/listaregistros/${usuario.id}`, usuario);
+  }
+
+  crearUsuario(usuario: ListaRegistro): Observable<any> {
+    return this.http.post(`${this.apiUrl}/listaregistros`, usuario);
+  }
+
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/listaregistros/${id}`);
   }
 }

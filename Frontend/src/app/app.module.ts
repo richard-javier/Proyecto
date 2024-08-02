@@ -8,13 +8,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/ForgotPasswordComponent/forgot-password.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ListaRegistroComponent } from './components/Lista-registros/lista-registro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    RegisterComponent // Declara el nuevo componente aquí
+    RegisterComponent, // Declara el nuevo componente aquí
+    ListaRegistroComponent
   ],
   imports: [
     BrowserModule,
