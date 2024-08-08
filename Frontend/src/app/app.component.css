@@ -1,6 +1,13 @@
-/* styles.css */
+/* Estilos básicos para toda la página */
+body {
+  background-color: #d0f0fd; /* Fondo celeste claro */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  padding: 0;
+}
+
 nav {
-  background-color: #f8f9fa;
+  background-color: #bce0fa; /* Celeste claro más oscuro */
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -9,6 +16,7 @@ nav {
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: center; /* Centramos los elementos del nav */
   }
 
     nav ul li {
@@ -22,10 +30,11 @@ nav {
         text-decoration: none;
         color: #007bff;
         border-right: 1px solid #e5e5e5;
+        transition: background-color 0.3s ease;
       }
 
         nav ul li a:hover {
-          background-color: #e5e5e5;
+          background-color: #a8d8f0; /* Un tono más oscuro de celeste claro */
         }
 
       nav ul li:last-child a {

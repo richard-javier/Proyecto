@@ -1,79 +1,60 @@
-/* Estilos básicos para el formulario de login */
-body {
-  background-color: #032B44; /* Azul marino */
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
 
 .login-container {
-  display: flex;
-  flex-direction: column;
   max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 40px;
+  background-color: transparent; 
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
   .login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
     font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-
-  .login-container form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .login-container div {
     margin-bottom: 20px;
   }
 
   .login-container label {
-    margin-bottom: 5px;
-    font-size: 16px;
+    display: block;
     font-weight: bold;
-    color: #666;
+    margin-bottom: 10px;
   }
 
-  .login-container input {
+  .login-container input[type="text"],
+  .login-container input[type="password"],
+  .login-container input[type="email"] {
+    width: 100%;
     padding: 10px;
-    font-size: 16px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
 
-  .login-container button {
-    padding: 12px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
+  .login-container button[type="submit"] {
+    background-color: #0074d9; 
+    color: #fff;
+    padding: 10px 20px;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
-    .login-container button:hover {
-      background-color: #45a049;
+    .login-container button[type="submit"]:hover {
+      background-color: #0056b3; 
     }
 
-/* Estilos para los enlaces de registro y recuperación de contraseña */
 .login-links {
-  text-align: center;
-  margin-top: 20px;
+  text-align: center; 
+  margin-top: 10px;
 }
 
   .login-links a {
-    color: #337ab7;
+    color: #0074d9; 
     text-decoration: none;
+    margin: 0 10px;
   }
 
     .login-links a:hover {
-      color: #23527c;
+      text-decoration: underline;
     }
+

@@ -1,36 +1,61 @@
-<div class="container">
-  <h1>Ventas</h1>
+<div class="venta-container">
+  <h2>Gestión de Ventas</h2>
 
-  <!-- Formulario para crear/editar ventas -->
-  <form [formGroup]="ventaForm" (ngSubmit)="guardarVenta()">
-    <div class="form-group">
-      <label for="fechaVenta">Fecha de Venta</label>
-      <input id="fechaVenta" type="date" formControlName="fechaVenta" class="form-control" />
-      <div *ngIf="ventaForm.get('fechaVenta')?.invalid && (ventaForm.get('fechaVenta')?.dirty || ventaForm.get('fechaVenta')?.touched)" class="text-danger">
-        Fecha de venta es requerida.
-      </div>
+  <form (ngSubmit)="agregarVenta()">
+    <div>
+      <label for="ventaId">Venta ID</label>
+      <input type="number" id="ventaId" [(ngModel)]="venta.ventaId" name="ventaId" required />
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <div>
+      <label for="fechaVenta">Fecha de Venta</label>
+      <input type="date" id="fechaVenta" [(ngModel)]="venta.fechaVenta" name="fechaVenta" required />
+    </div>
+
+    <div>
+      <label for="clienteId">Cliente ID</label>
+      <input type="number" id="clienteId" [(ngModel)]="venta.clienteId" name="clienteId" required />
+    </div>
+
+    <div *ngFor="let detalle of venta.detallesVenta; let i = index">
+      <fieldset>
+        <legend>Detalle de Venta {{ i + 1 }}</legend>
+
+        <div>
+          <label for="productoId">Producto ID</label>
+          <input type="number" id="productoId" [(ngModel)]="detalle.productoId" name="productoId" required />
+        </div>
+
+        <div>
+          <label for="cantidad">Cantidad</label>
+          <input type="number" id="cantidad" [(ngModel)]="detalle.cantidad" name="cantidad" required />
+        </div>
+
+        <div>
+          <label for="precioUnitario">Precio Unitario</label>
+          <input type="number" id="precioUnitario" [(ngModel)]="detalle.precioUnitario" name="precioUnitario" required />
+        </div>
+
+        <button type="button" (click)="eliminarDetalle(i)">Eliminar Detalle</button>
+      </fieldset>
+    </div>
+
+    <button type="button" (click)="agregarDetalle()">Agregar Detalle</button>
+
+    <button type="submit">{{ isEdit ? 'Actualizar' : 'Agregar' }}</button>
+    <button type="button" (click)="cancelarEdicion()" *ngIf="isEdit">Cancelar</button>
   </form>
 
-  <!-- Tabla de ventas -->
-  <table class="table table-striped mt-4">
-    <thead>
-      <tr>
-        <th>Fecha de Venta</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let venta of ventas">
-        <td>{{ venta.fechaVenta | date }}</td>
-        <td>
-          <button class="btn btn-warning btn-sm" (click)="editarVenta(venta)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="eliminarVenta(venta.ventaId)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ul>
+    <li *ngFor="let venta of ventas">
+      <span>{{ venta.ventaId }} - {{ venta.fechaVenta | date }} - {{ venta.clienteId }}</span>
+      <ul>
+        <li *ngFor="let detalle of venta.detallesVenta">
+          {{ detalle.productoId }} - {{ detalle.cantidad }} - {{ detalle.precioUnitario }}
+        </li>
+      </ul>
+      <button (click)="editarVenta(venta)">Editar</button>
+      <button (click)="eliminarVenta(venta.ventaId)">Eliminar</button>
+    </li>
+  </ul>
 </div>
-

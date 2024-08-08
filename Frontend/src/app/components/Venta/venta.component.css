@@ -1,91 +1,173 @@
-.container {
-  margin: 20px auto;
-  max-width: 900px;
-  background-color: #f8f9fa;
+/* Estilos para la gestión de ventas */
+.venta-container {
+  width: 50%;
+  margin: 0 auto;
   padding: 20px;
-  border-radius: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #343a40;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-input.form-control {
-  border-radius: 4px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-}
-
-button.btn {
-  margin-right: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button.btn-primary {
-  background-color: #007bff;
-  color: white;
-}
-
-  button.btn-primary:hover {
-    background-color: #0056b3;
-  }
-
-button.btn-warning {
-  background-color: #ffc107;
-  color: #343a40;
-}
-
-  button.btn-warning:hover {
-    background-color: #e0a800;
-  }
-
-button.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-  button.btn-danger:hover {
-    background-color: #c82333;
-  }
-
-.table {
-  width: 100%;
-  margin-top: 30px;
-  border-collapse: collapse;
-}
-
-  .table th, .table td {
+  .venta-container h2 {
     text-align: center;
-    padding: 15px;
-    border-bottom: 1px solid #dee2e6;
+    color: #333;
+    margin-bottom: 20px;
   }
 
-  .table th {
-    background-color: #343a40;
-    color: white;
+  .venta-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f2f2f2;
+    .venta-container form div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .venta-container form label {
+      flex-basis: 35%;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .venta-container form input {
+      width: 60%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .venta-container form button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+      .venta-container form button[type="submit"] {
+        background-color: #28a745;
+        color: #fff;
+      }
+
+        .venta-container form button[type="submit"]:hover {
+          background-color: #218838;
+        }
+
+      .venta-container form button[type="button"] {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+        .venta-container form button[type="button"]:hover {
+          background-color: #0056b3;
+        }
+
+      .venta-container form button.cancelar {
+        background-color: #dc3545;
+      }
+
+        .venta-container form button.cancelar:hover {
+          background-color: #c82333;
+        }
+
+  .venta-container ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+
+    .venta-container ul li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+      .venta-container ul li span {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .venta-container ul li ul {
+        list-style: none;
+        padding-left: 20px;
+        margin: 10px 0;
+      }
+
+        .venta-container ul li ul li {
+          padding: 5px 0;
+          display: flex;
+          justify-content: space-between;
+        }
+
+      .venta-container ul li button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+        .venta-container ul li button.edit {
+          background-color: #ffc107;
+          color: #fff;
+        }
+
+          .venta-container ul li button.edit:hover {
+            background-color: #e0a800;
+          }
+
+        .venta-container ul li button.delete {
+          background-color: #dc3545;
+          color: #fff;
+        }
+
+          .venta-container ul li button.delete:hover {
+            background-color: #c82333;
+          }
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
 }
 
-.text-danger {
-  font-size: 0.875rem;
-  color: #dc3545;
+legend {
+  font-weight: bold;
+  color: #333;
 }
 
-  .text-danger:before {
-    content: '⚠ ';
+fieldset div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+  fieldset div input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+fieldset button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+  fieldset button:hover {
+    background-color: #c82333;
   }

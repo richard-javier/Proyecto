@@ -1,18 +1,21 @@
 <div>
   <h2>Lista de Usuarios</h2>
+  <!-- Campo de búsqueda -->
+  <input type="text" placeholder="Buscar usuario..." [(ngModel)]="filtro" (input)="filtrarUsuarios()" />
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Birthdate</th>
-        <th>Age</th>
-        <th>Actions</th>
+        <th>Usuario</th>
+        <th>Correo electronico</th>
+        <th>Cumpleaños</th>
+        <th>Años de edad</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let usuario of usuarios">
+      <!-- Mostrar usuarios filtrados -->
+      <tr *ngFor="let usuario of usuariosFiltrados">
         <td>{{ usuario.id }}</td>
         <td>{{ usuario.username }}</td>
         <td>{{ usuario.email }}</td>

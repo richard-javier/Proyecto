@@ -9,6 +9,8 @@ import { ListaRegistro } from '../../models/lista-registros';
 })
 export class ListaRegistroComponent implements OnInit {
   usuarios: ListaRegistro[] = [];
+  usuariosFiltrados: ListaRegistro[] = [];
+  filtro: string = '';
 
   constructor(private authService: AuthService) { }
 
@@ -20,6 +22,7 @@ export class ListaRegistroComponent implements OnInit {
     this.authService.obtenerUsuarios().subscribe(
       (data: ListaRegistro[]) => {
         this.usuarios = data;
+        this.usuariosFiltrados = data;
       },
       error => {
         console.error('Error fetching users', error);
@@ -31,10 +34,18 @@ export class ListaRegistroComponent implements OnInit {
     this.authService.eliminarUsuario(id).subscribe(
       () => {
         this.usuarios = this.usuarios.filter(user => user.id !== id);
+        this.filtrarUsuarios(); // Aplicar filtro después de eliminar un usuario
       },
       error => {
         console.error('Error deleting user', error);
       }
+    );
+  }
+
+  filtrarUsuarios() {
+    this.usuariosFiltrados = this.usuarios.filter(usuario =>
+      usuario.username.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      usuario.email.toLowerCase().includes(this.filtro.toLowerCase())
     );
   }
 }

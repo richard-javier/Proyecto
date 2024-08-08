@@ -26,3 +26,11 @@ button {
   button:hover {
     background-color: #d32f2f;
   }
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Venta } from '../../models/Venta';
 import { VentaService } from '../../services/Venta.service';
+import { Venta, DetalleVenta } from '../../models/Venta';
+import { Cliente } from '../../models/Cliente';
 
 @Component({
   selector: 'app-venta',
@@ -10,15 +10,10 @@ import { VentaService } from '../../services/Venta.service';
 })
 export class VentaComponent implements OnInit {
   ventas: Venta[] = [];
-  ventaForm: FormGroup;
+  venta: Venta = new Venta();
+  isEdit: boolean = false;
 
-  constructor(private ventaService: VentaService, private fb: FormBuilder) {
-    this.ventaForm = this.fb.group({
-      ventaId: [0],
-      fechaVenta: ['', Validators.required],
-      // clienteId field removed
-    });
-  }
+  constructor(private ventaService: VentaService) { }
 
   ngOnInit(): void {
     this.obtenerVentas();
@@ -26,40 +21,54 @@ export class VentaComponent implements OnInit {
 
   obtenerVentas(): void {
     this.ventaService.obtenerVentas().subscribe(
-      data => this.ventas = data,
-      error => console.error(error)
+      (data: Venta[]) => this.ventas = data,
+      (error: any) => console.error(error)
     );
   }
 
-  guardarVenta(): void {
-    const venta: Venta = this.ventaForm.value;
-    if (venta.ventaId === 0) {
-      this.ventaService.crearVenta(venta).subscribe(
-        data => {
+  agregarVenta(): void {
+    if (this.isEdit) {
+      this.ventaService.actualizarVenta(this.venta).subscribe(
+        () => {
           this.obtenerVentas();
-          this.ventaForm.reset();
+          this.venta = new Venta();
+          this.isEdit = false;
         },
-        error => console.error(error)
+        (error: any) => console.error(error)
       );
     } else {
-      this.ventaService.actualizarVenta(venta).subscribe(
-        data => {
+      this.ventaService.crearVenta(this.venta).subscribe(
+        () => {
           this.obtenerVentas();
-          this.ventaForm.reset();
+          this.venta = new Venta();
         },
-        error => console.error(error)
+        (error: any) => console.error(error)
       );
     }
   }
 
   editarVenta(venta: Venta): void {
-    this.ventaForm.patchValue(venta);
+    this.venta = { ...venta };
+    this.isEdit = true;
   }
 
-  eliminarVenta(ventaId: number): void {
-    this.ventaService.eliminarVenta(ventaId).subscribe(
-      data => this.obtenerVentas(),
-      error => console.error(error)
+  eliminarVenta(id: number): void {
+    this.ventaService.eliminarVenta(id).subscribe(
+      () => this.obtenerVentas(),
+      (error: any) => console.error(error)
     );
+  }
+
+  agregarDetalle(): void {
+    this.venta.detallesVenta.push(new DetalleVenta());
+  }
+
+  eliminarDetalle(index: number): void {
+    this.venta.detallesVenta.splice(index, 1);
+  }
+
+  cancelarEdicion(): void {
+    this.venta = new Venta();
+    this.isEdit = false;
   }
 }

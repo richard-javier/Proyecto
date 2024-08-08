@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Compra } from '../../models/Compra';
 import { CompraService } from '../../services/Compra.service';
+import { Compra, DetalleCompra } from '../../models/Compra';
+import { Cliente } from '../../models/Cliente';
 
 @Component({
   selector: 'app-compra',
@@ -10,15 +10,10 @@ import { CompraService } from '../../services/Compra.service';
 })
 export class CompraComponent implements OnInit {
   compras: Compra[] = [];
-  compraForm: FormGroup;
+  compra: Compra = new Compra();
+  isEdit: boolean = false;
 
-  constructor(private compraService: CompraService, private fb: FormBuilder) {
-    this.compraForm = this.fb.group({
-      compraId: [0],
-      fechaCompra: ['', Validators.required],
-      clienteId: [0, Validators.required]
-    });
-  }
+  constructor(private compraService: CompraService) { }
 
   ngOnInit(): void {
     this.obtenerCompras();
@@ -26,40 +21,54 @@ export class CompraComponent implements OnInit {
 
   obtenerCompras(): void {
     this.compraService.obtenerCompras().subscribe(
-      data => this.compras = data,
-      error => console.error(error)
+      (data: Compra[]) => this.compras = data,
+      (error: any) => console.error(error)
     );
   }
 
-  guardarCompra(): void {
-    const compra: Compra = this.compraForm.value;
-    if (compra.compraId === 0) {
-      this.compraService.crearCompra(compra).subscribe(
-        data => {
+  agregarCompra(): void {
+    if (this.isEdit) {
+      this.compraService.actualizarCompra(this.compra).subscribe(
+        () => {
           this.obtenerCompras();
-          this.compraForm.reset();
+          this.compra = new Compra();
+          this.isEdit = false;
         },
-        error => console.error(error)
+        (error: any) => console.error(error)
       );
     } else {
-      this.compraService.actualizarCompra(compra).subscribe(
-        data => {
+      this.compraService.crearCompra(this.compra).subscribe(
+        () => {
           this.obtenerCompras();
-          this.compraForm.reset();
+          this.compra = new Compra();
         },
-        error => console.error(error)
+        (error: any) => console.error(error)
       );
     }
   }
 
   editarCompra(compra: Compra): void {
-    this.compraForm.patchValue(compra);
+    this.compra = { ...compra };
+    this.isEdit = true;
   }
 
-  eliminarCompra(compraId: number): void {
-    this.compraService.eliminarCompra(compraId).subscribe(
-      data => this.obtenerCompras(),
-      error => console.error(error)
+  eliminarCompra(id: number): void {
+    this.compraService.eliminarCompra(id).subscribe(
+      () => this.obtenerCompras(),
+      (error: any) => console.error(error)
     );
+  }
+
+  agregarDetalle(): void {
+    this.compra.detallesCompra.push(new DetalleCompra());
+  }
+
+  eliminarDetalle(index: number): void {
+    this.compra.detallesCompra.splice(index, 1);
+  }
+
+  cancelarEdicion(): void {
+    this.compra = new Compra();
+    this.isEdit = false;
   }
 }

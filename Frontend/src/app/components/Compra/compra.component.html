@@ -1,22 +1,53 @@
 <div class="compra-container">
-  <h2>Compras</h2>
-  <form [formGroup]="compraForm" (ngSubmit)="guardarCompra()">
-    <input formControlName="compraId" type="hidden">
-    <div class="form-group">
+  <h2>{{ isEdit ? 'Editar Compra' : 'Nueva Compra' }}</h2>
+  <form (ngSubmit)="agregarCompra()">
+    <div>
+      <label for="clienteId">Cliente ID:</label>
+      <input type="number" id="clienteId" [(ngModel)]="compra.clienteId" name="clienteId" required>
+    </div>
+    <div>
       <label for="fechaCompra">Fecha de Compra:</label>
-      <input id="fechaCompra" formControlName="fechaCompra" type="date" class="form-control">
+      <input type="date" id="fechaCompra" [(ngModel)]="compra.fechaCompra" name="fechaCompra" required>
     </div>
-    <div class="form-group">
-      <label for="clienteId">ID del Cliente:</label>
-      <input id="clienteId" formControlName="clienteId" type="number" class="form-control">
+    <div>
+      <h3>Detalles de Compra</h3>
+      <button type="button" (click)="agregarDetalle()">Agregar Detalle</button>
+      <div *ngFor="let detalle of compra.detallesCompra; let i = index">
+        <div>
+          <label for="productoId">Producto ID:</label>
+          <input type="number" id="productoId" [(ngModel)]="detalle.productoId" name="productoId{{i}}" required>
+        </div>
+        <div>
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" id="cantidad" [(ngModel)]="detalle.cantidad" name="cantidad{{i}}" required>
+        </div>
+        <div>
+          <label for="precioUnitario">Precio Unitario:</label>
+          <input type="number" id="precioUnitario" [(ngModel)]="detalle.precioUnitario" name="precioUnitario{{i}}" required>
+        </div>
+        <button type="button" (click)="eliminarDetalle(i)">Eliminar Detalle</button>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="submit">{{ isEdit ? 'Actualizar' : 'Agregar' }}</button>
+    <button type="button" (click)="cancelarEdicion()" *ngIf="isEdit">Cancelar</button>
   </form>
-  <ul class="list-group mt-4">
-    <li *ngFor="let compra of compras" class="list-group-item">
-      {{ compra.fechaCompra | date }} - Cliente ID: {{ compra.clienteId }}
-      <button (click)="editarCompra(compra)" class="btn btn-secondary btn-sm ml-2">Editar</button>
-      <button (click)="eliminarCompra(compra.compraId)" class="btn btn-danger btn-sm ml-2">Eliminar</button>
+
+  <h2>Lista de Compras</h2>
+  <ul>
+    <li *ngFor="let compra of compras">
+      <p>ID: {{ compra.compraId }}</p>
+      <p>Cliente ID: {{ compra.clienteId }}</p>
+      <p>Fecha de Compra: {{ compra.fechaCompra | date }}</p>
+      <h3>Detalles</h3>
+      <ul>
+        <li *ngFor="let detalle of compra.detallesCompra">
+          <p>Producto ID: {{ detalle.productoId }}</p>
+          <p>Cantidad: {{ detalle.cantidad }}</p>
+          <p>Precio Unitario: {{ detalle.precioUnitario }}</p>
+        </li>
+      </ul>
+      <button (click)="editarCompra(compra)">Editar</button>
+      <button (click)="eliminarCompra(compra.compraId)">Eliminar</button>
     </li>
   </ul>
 </div>
