@@ -1,5 +1,4 @@
-// environment.ts
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5106' // Asegúrate de que este es el puerto correcto
+  production: true,
+  apiUrl: 'https://localhost:44390' // Nota que "api" no está incluido aquí
 };

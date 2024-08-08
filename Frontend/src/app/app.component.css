@@ -1,0 +1,33 @@
+/* styles.css */
+nav {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+    nav ul li {
+      margin: 0;
+      padding: 0;
+    }
+
+      nav ul li a {
+        display: block;
+        padding: 14px 20px;
+        text-decoration: none;
+        color: #007bff;
+        border-right: 1px solid #e5e5e5;
+      }
+
+        nav ul li a:hover {
+          background-color: #e5e5e5;
+        }
+
+      nav ul li:last-child a {
+        border-right: none;
+      }

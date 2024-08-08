@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Ventas</h1>
+
+  <!-- Formulario para crear/editar ventas -->
+  <form [formGroup]="ventaForm" (ngSubmit)="guardarVenta()">
+    <div class="form-group">
+      <label for="fechaVenta">Fecha de Venta</label>
+      <input id="fechaVenta" type="date" formControlName="fechaVenta" class="form-control" />
+      <div *ngIf="ventaForm.get('fechaVenta')?.invalid && (ventaForm.get('fechaVenta')?.dirty || ventaForm.get('fechaVenta')?.touched)" class="text-danger">
+        Fecha de venta es requerida.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+
+  <!-- Tabla de ventas -->
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Fecha de Venta</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venta of ventas">
+        <td>{{ venta.fechaVenta | date }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarVenta(venta)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarVenta(venta.ventaId)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -1,0 +1,22 @@
+<div class="compra-container">
+  <h2>Compras</h2>
+  <form [formGroup]="compraForm" (ngSubmit)="guardarCompra()">
+    <input formControlName="compraId" type="hidden">
+    <div class="form-group">
+      <label for="fechaCompra">Fecha de Compra:</label>
+      <input id="fechaCompra" formControlName="fechaCompra" type="date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="clienteId">ID del Cliente:</label>
+      <input id="clienteId" formControlName="clienteId" type="number" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+  <ul class="list-group mt-4">
+    <li *ngFor="let compra of compras" class="list-group-item">
+      {{ compra.fechaCompra | date }} - Cliente ID: {{ compra.clienteId }}
+      <button (click)="editarCompra(compra)" class="btn btn-secondary btn-sm ml-2">Editar</button>
+      <button (click)="eliminarCompra(compra.compraId)" class="btn btn-danger btn-sm ml-2">Eliminar</button>
+    </li>
+  </ul>
+</div>

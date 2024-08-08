@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Productos</h1>
+
+  <!-- Formulario para crear/editar productos -->
+  <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" formControlName="nombre" class="form-control" />
+      <div *ngIf="productoForm.get('nombre')?.invalid && (productoForm.get('nombre')?.dirty || productoForm.get('nombre')?.touched)" class="text-danger">
+        Nombre es requerido.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" formControlName="descripcion" class="form-control" />
+      <div *ngIf="productoForm.get('descripcion')?.invalid && (productoForm.get('descripcion')?.dirty || productoForm.get('descripcion')?.touched)" class="text-danger">
+        Descripción es requerida.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cantidadEnStock">Cantidad en Stock</label>
+      <input id="cantidadEnStock" type="number" formControlName="cantidadEnStock" class="form-control" />
+      <div *ngIf="productoForm.get('cantidadEnStock')?.invalid && (productoForm.get('cantidadEnStock')?.dirty || productoForm.get('cantidadEnStock')?.touched)" class="text-danger">
+        Cantidad en stock es requerida.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input id="precio" type="number" formControlName="precio" class="form-control" />
+      <div *ngIf="productoForm.get('precio')?.invalid && (productoForm.get('precio')?.dirty || productoForm.get('precio')?.touched)" class="text-danger">
+        Precio es requerido.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+
+  <!-- Tabla de productos -->
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Cantidad en Stock</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.cantidadEnStock }}</td>
+        <td>{{ producto.precio | currency }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarProducto(producto.productoId)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -8,11 +8,12 @@ import { environment } from '../../app/enviroments/enviroment';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = `${environment.apiUrl}/api/login`;
+  private myAppUrl: string = environment.apiUrl;
+  private myApiUrl: string = 'api/login/';
 
   constructor(private http: HttpClient) { }
 
-  login(login: Login): Observable<any> {
-    return this.http.post(this.apiUrl, login);
+  login(login: Login): Observable<Login> {
+    return this.http.post<Login>(`${this.myAppUrl}/${this.myApiUrl}`, login);
   }
 }

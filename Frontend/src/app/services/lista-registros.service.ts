@@ -8,23 +8,24 @@ import { environment } from '../../app/enviroments/enviroment';
   providedIn: 'root'
 })
 export class ListaRegistrosService {
-  private apiUrl = `${environment.apiUrl}/api/listaregistros`;
+  private myAppUrl: string = environment.apiUrl;
+  private myApiUrl: string = 'api/listaregistros/';
 
   constructor(private http: HttpClient) { }
 
   obtenerRegistros(): Observable<ListaRegistro[]> {
-    return this.http.get<ListaRegistro[]>(this.apiUrl);
+    return this.http.get<ListaRegistro[]>(`${this.myAppUrl}/${this.myApiUrl}`);
   }
 
-  crearRegistro(registro: ListaRegistro): Observable<any> {
-    return this.http.post(this.apiUrl, registro);
+  crearRegistro(registro: ListaRegistro): Observable<ListaRegistro> {
+    return this.http.post<ListaRegistro>(`${this.myAppUrl}/${this.myApiUrl}`, registro);
   }
 
-  actualizarRegistro(registro: ListaRegistro): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${registro.id}`, registro);
+  actualizarRegistro(registro: ListaRegistro): Observable<ListaRegistro> {
+    return this.http.put<ListaRegistro>(`${this.myAppUrl}/${this.myApiUrl}/${registro.id}`, registro);
   }
 
-  eliminarRegistro(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  eliminarRegistro(id: number): Observable<ListaRegistro> {
+    return this.http.delete<ListaRegistro>(`${this.myAppUrl}/${this.myApiUrl}/${id}`);
   }
 }
